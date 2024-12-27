@@ -1,29 +1,26 @@
 #include <string>
 #include <vector>
-#include <cmath>
 
 using namespace std;
 
-string Trit(int n)
-{
-    string Result  = "";
-    while(n != 0)
-    {
-        Result += to_string(n % 3);
-        n /= 3;
-    }
-    return Result;
-}
-
 int solution(int n) {
     
-    string R_Trit = Trit(n);
-    int answer = 0;
+    vector<int> R_Trit;
     
-    int i = R_Trit.length() - 1;
-    for(int j = i; j >= 0; --j)
+    // vector에 리버스된 3진법 저장
+    while(n != 0)
     {
-        answer += (R_Trit[i - j] - '0') * pow(3, j);
+        R_Trit.push_back(n % 3);
+        n /= 3;
+    }
+    
+    int k = 1;
+    int answer = 0;
+    while(!R_Trit.empty())
+    {
+        answer += k * R_Trit.back();
+        R_Trit.pop_back();
+        k *= 3;
     }
     
     return answer;
