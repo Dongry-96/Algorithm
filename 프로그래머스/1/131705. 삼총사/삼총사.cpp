@@ -3,22 +3,23 @@
 
 using namespace std;
 
-int solution(vector<int> number) {
-    int answer = 0;
-    int size = number.size();
+int GetCombinationCnt(vector<int> Number, int Sum, int Count, int Idx)
+{
+    int Result = 0;
     
-    for(int i = 0; i < size - 2; i++)
+    if(Count == 3)
     {
-        for(int j = i + 1; j < size - 1; j++)
-        {
-            for(int k = j + 1; k < size; k++)
-            {
-                if(number[i] + number[j] + number[k] == 0)
-                {
-                    answer++;
-                }
-            }
-        }
+        return Sum == 0;
     }
-    return answer;
+    
+    for(int i = Idx; i < Number.size(); ++i)
+    {
+        Result += GetCombinationCnt(Number, Sum + Number[i], Count + 1, i + 1);
+    }
+    
+    return Result;
+}
+
+int solution(vector<int> Number) {
+    return GetCombinationCnt(Number, 0, 0, 0);
 }
