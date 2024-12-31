@@ -11,16 +11,10 @@ string solution(string s, int n)
         
         // 공백일 경우
         if(NowChar == ' ') continue;
-        // 대문자일 경우
-        if(isupper(NowChar))
-        {
-            s[i] = 'A' + (NowChar - 'A' + n) % 26;
-        }
-        // 소문자일 경우
-        if(islower(NowChar))
-        {
-            s[i] = 'a' + (NowChar - 'a' + n) % 26;
-        }
+        
+        // 대소문자 경우에 따라 알파벳 순환 이동(circular shifting)
+        int Case = (NowChar >= 'a') ? 'a' : 'A'; 
+        s[i] = Case + (NowChar - Case + n) % 26;
     }
     
     return s;
