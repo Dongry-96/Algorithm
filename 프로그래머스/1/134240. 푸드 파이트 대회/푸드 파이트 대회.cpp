@@ -4,17 +4,13 @@
 using namespace std;
 
 string solution(vector<int> food) {
-    string answer = "0";
-    int count;
+    string answer = "";
     
-    for(int i = food.size() - 1; i > 0; --i)
+    for(int i = 1; i < food.size(); ++i)
     {
-        count = food[i] / 2;
-        while(count)
-        {
-            answer = to_string(i) + answer + to_string(i);
-            --count;
-        }
+        answer.insert(answer.size() >> 1, food[i] - (food[i] & 1), '0' + i);
     }
+    answer.insert(answer.size() >> 1, 1, '0');
+    
     return answer;
 }
