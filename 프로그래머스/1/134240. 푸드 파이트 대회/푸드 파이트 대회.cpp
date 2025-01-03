@@ -1,25 +1,20 @@
 #include <string>
 #include <vector>
-#include <algorithm>
 
 using namespace std;
 
 string solution(vector<int> food) {
-    string answer = "";
-
-    for (int i = 1; i < food.size(); ++i)
+    string answer = "0";
+    int count;
+    
+    for(int i = food.size() - 1; i > 0; --i)
     {
-        string temp = to_string(i);
-        for (int j = 0; j < food[i] / 2; ++j)
+        count = food[i] / 2;
+        while(count)
         {
-            answer += temp;
+            answer = to_string(i) + answer + to_string(i);
+            --count;
         }
     }
-
-    string temp = answer;
-    sort(temp.begin(), temp.end(), greater<>());
-
-    answer += '0' + temp;
-
     return answer;
 }
