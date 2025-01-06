@@ -1,33 +1,33 @@
 #include <string>
 #include <vector>
-#include <queue>
+#include <set>
 
 using namespace std;
 
 vector<int> solution(int k, vector<int> score) {
     vector<int> answer;
-    priority_queue<int, vector<int>, greater<int>> pq;
+    multiset<int> topList;
     
     for(int i = 0; i < score.size(); ++i)
     {
-        // pq의 사이즈가 k 이상
-        if(pq.size() >= k)
+        // k를 초과하지 않을 때
+        if(i < k)
         {
-            // 현재 score가 pq의 최소 값보다 클 때만 명예의 전당에 값 저장
-            if(score[i] > pq.top())
+            topList.insert(score[i]);
+        }
+        // k를 초과할 때
+        else 
+        {
+            // 현재 스코어가 topList의 최소 값보다 크다면
+            if(score[i] > *topList.begin())
             {
-                pq.pop();
-                pq.push(score[i]);    
+                topList.erase(topList.begin());
+                topList.insert(score[i]);
             }
         }
-        // pq의 사이즈가 k 미만
-        else
-        {
-            pq.push(score[i]);
-        }
         
-        // 명예의 전당 최하위 점수 저장
-        answer.push_back(pq.top());
+        //현재 topList의 최소 값을 answer에 저장
+        answer.push_back(*topList.begin());
     }
     
     return answer;
