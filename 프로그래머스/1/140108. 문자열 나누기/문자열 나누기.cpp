@@ -23,15 +23,8 @@ int solution(string s)
 			continue;
         }
 
-        if (Target == s[Idx])
-        {
-            Count1++;
-        }
-        else
-        {
-            Count2++;
-        }
-
+		Target == s[Idx] ? Count1++ : Count2++;
+        
         Idx++;
         if (Idx == s.size())
         {
