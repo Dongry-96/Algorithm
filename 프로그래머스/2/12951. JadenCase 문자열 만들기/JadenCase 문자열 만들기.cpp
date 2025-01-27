@@ -7,35 +7,11 @@ using namespace std;
 string solution(string s) 
 {
     string answer = "";
-    bool capitalize = true;
-
-    for (char ch : s)
+    
+    answer += toupper(s[0]);
+    for (int i = 1; i < s.length(); ++i)
     {
-        if (ch == ' ')
-        {
-            answer += ' ';
-            capitalize = true;
-        }
-        else
-        {
-            if (capitalize)
-            {
-                if (!isalpha(ch))
-                {
-                    answer += ch;
-                    capitalize = false;
-                }
-                else
-                {
-                    answer += toupper(ch);
-                    capitalize = false;
-                }
-            }
-            else
-            {
-                answer += tolower(ch);
-            }
-        }
+        answer[i - 1] == ' ' ? answer += toupper(s[i]) : answer += tolower(s[i]);
     }
     
     return answer;
