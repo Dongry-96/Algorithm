@@ -2,27 +2,17 @@
 
 using namespace std;
 
-int GCD(int a, int b)
-{
-    while(b != 0)
-    {
-        int temp = b;
-        b = a % b;
-        a = temp;
-    }
-    return a;
-}
+int gcd(int x, int y) { return x % y == 0 ? y : gcd(y , x % y); }
+int lcm(int x, int y) { return x * y / gcd(x, y); }
 
 int solution(vector<int> arr) 
 {
-    int a = arr[0];
+    int answer = arr[0];
     
     for(int i = 1; i < arr.size(); ++i)
     {
-        int b = arr[i];
-        int divisor = GCD(a,b);
-        a = a * b / divisor;    
+        answer = lcm(answer, arr[i]);
     }
     
-    return a;
+    return answer;
 }
