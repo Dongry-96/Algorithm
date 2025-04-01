@@ -10,17 +10,17 @@ int solution(vector<int> topping)
     int answer = 0;
     unordered_set<int> left;
     unordered_map<int, int> right;
-    for (int i = 0; i < topping.size(); ++i)
+    for (int t : topping)
     {
-        right[topping[i]]++;
+        right[t]++;
     }
 
-    for (int i = 0; i < topping.size(); ++i)
+    for (int t : topping)
     {
-        right[topping[i]]--;
-        left.insert(topping[i]);
+        right[t]--;
+        left.insert(t);
 
-        if (right[topping[i]] <= 0) right.erase(topping[i]);
+        if (right[t] <= 0) right.erase(t);
         if (left.size() == right.size()) answer++;
     }
 
