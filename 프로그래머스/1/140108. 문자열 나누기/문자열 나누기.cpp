@@ -1,36 +1,46 @@
 #include <string>
 #include <vector>
+#include <iostream>
 
 using namespace std;
 
 int solution(string s)
 {
-    vector<string> ResultList;
-    int Count1 = 0; int Count2 = 0;
+    vector<string> result;
 
-    int Idx = 0;
-	int TargetIdx = 0;
-    while (Idx != s.size())
+    while (!s.empty())
     {
-        char Target = s[TargetIdx];
+        auto it = s.begin();
+        char pivot = *it;
+        pair<int, int> cnt({ 0,0 });
 
-        if (Count1 == Count2 && Count1 != 0)
+        while (it != s.end())
         {
-            ResultList.push_back(s.substr(TargetIdx, Count1 + Count2));
-            Count1 = 0;
-            Count2 = 0;
-            TargetIdx = Idx;
-			continue;
+            if (*it == pivot)
+            {
+                cnt.first++;
+            }
+            else
+            {
+                cnt.second++;
+            }
+            it++;
+
+            if (cnt.first == cnt.second)
+            {
+                string temp(s.begin(), it);
+                result.push_back(temp);
+                s.erase(0, temp.size());
+                break;
+            }
         }
 
-		Target == s[Idx] ? Count1++ : Count2++;
-        
-        Idx++;
-        if (Idx == s.size())
+        if (cnt.first != cnt.second)
         {
-            ResultList.push_back(s.substr(TargetIdx, Count1 + Count2));
+            result.push_back(s);
+            break;
         }
     }
 
-    return ResultList.size();
+    return result.size();
 }
